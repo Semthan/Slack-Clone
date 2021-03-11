@@ -1,0 +1,31 @@
+{
+  "name": "slack-clone",
+  "version": "1.0.0",
+  "description": "This is slack clone uisng node, express mongoDB and more..",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.1.6",
+    "express-session": "^1.17.1",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "mongoose": "^5.11.20",
+    "passport-local": "^1.0.0",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Semthan/Slack-Clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Semthan/Slack-Clone/issues"
+  },
+  "homepage": "https://github.com/Semthan/Slack-Clone#readme"
+}
