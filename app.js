@@ -5,6 +5,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts')
+const passport = require('passport')
+require("./config/passport")(passport)
 
 //mongoose
 mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,11 +27,14 @@ app.use(session ({
     saveUninitialized: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 //use flash
 app.use(flash());
 app.use((req,res,next)=> {
     res.locals.success_msg = req.flash('success_msg');
-    res.error_msg = req.flash('error_msg');
+    res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error')
 next();    
 })
