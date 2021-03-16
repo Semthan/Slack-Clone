@@ -5,3 +5,16 @@
         </p>
         <% }) %>
             <% } %>
+
+<% if(success_msg!='' ) { %>
+    <p>
+        <%=success_msg %>
+    </p>
+<% } %>
+
+<% if(error_msg != '') { %>
+    <%= error_msg %> 
+  <% } %> 
+  <% if(error != '') { %>
+    <%= error %>
+<% } %>
