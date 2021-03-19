@@ -17,4 +17,8 @@ router.get('/dashboard',ensureAuthenticated,(req,res)=> {
     res.render('dashboard', { user: req.user})
 })
 
+router.get('/chat', ensureAuthenticated,(req,res)=>{
+    res.render('chat', { user: req.user})
+})
+
 module.exports = router; 
