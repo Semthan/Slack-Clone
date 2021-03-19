@@ -7,6 +7,10 @@ const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts')
 const passport = require('passport')
 require("./config/passport")(passport)
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+const path = require('path');
+
 
 //mongoose
 mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -16,6 +20,8 @@ mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnified
 //EJS
 app.set('view engine', 'ejs');
 app.use(expressEjsLayout);
+
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 //BodyParser
 app.use(express.urlencoded({ extended: false }));
@@ -39,8 +45,23 @@ app.use((req,res,next)=> {
 next();    
 })
 
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg)
+        io.emit('chat message', msg);
+    })
+
+
+    socket.on("disconnect", () => {
+        console.log("user disconnected")
+    })
+
+});
+
 //Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
-app.listen(3000);
+http.listen(3000);// varför inte app.listen? 
