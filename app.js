@@ -63,5 +63,6 @@ io.on('connection', (socket) => {
 //Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+app.use('/channels',require('./routes/channels'))
 
 http.listen(3000);// varför inte app.listen? 
