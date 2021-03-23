@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const router = express.Router();
 const session = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
