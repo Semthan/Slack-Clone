@@ -30,7 +30,7 @@ body {
   outline: none;
 }
 
-#form > button {
+#form > #submit {
   background: #333;
   border: none;
   padding: 0 1rem;
