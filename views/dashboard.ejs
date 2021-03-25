@@ -1,6 +1,22 @@
 <h1>Dashboard</h1>
-<p> Welcome <%= user.name %></p>
+<h1>Welcome back <a href="/users/profile"><%= user.name %></a> </h1> 
+
 <a href="/users/logout">Logout</a>
 
-<h1>Rooms</h1>
-<a href="/chat">Chat</a>
+<h1>Channels</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Delete</th>
+  </tr>
+  <% channels.forEach( channel => { %>
+      <tr>
+        <td><a href="/channels/<%= channel._id %>"><%= channel.name %></a></td>
+        <td><a href="/channels/delete/<%= channel._id %>">Delete</a></td>
+      </tr>
+  <% }) %>
+</table>
+
+<hr>
+<a href="/channels/createChannel">Create Channel</a>
