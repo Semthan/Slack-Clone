@@ -9,6 +9,7 @@ require("./config/passport")(passport)
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const path = require('path');
+const fileUpload = require('express-fileupload');
 
 
 //mongoose
@@ -21,6 +22,10 @@ app.set('view engine', 'ejs');
 app.use(expressEjsLayout);
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(fileUpload({ createParentPath: true }));
 
 //BodyParser
 app.use(express.urlencoded({ extended: false }));
@@ -64,4 +69,4 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/channels',require('./routes/channels'))
 
-http.listen(3000);// varför inte app.listen? 
+http.listen(5000);// varför inte app.listen? 
