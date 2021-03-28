@@ -10,6 +10,7 @@ const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const path = require('path');
 const fileUpload = require('express-fileupload');
+require('./socket')(io);
 
 
 //mongoose
@@ -48,21 +49,6 @@ app.use((req,res,next)=> {
     res.locals.error = req.flash('error')
 next();    
 })
-
-io.on('connection', (socket) => {
-    console.log('a user connected');
-
-    socket.on('chat message', (msg) => {
-        console.log('message: ' + msg)
-        io.emit('chat message', msg);
-    })
-
-
-    socket.on("disconnect", () => {
-        console.log("user disconnected")
-    })
-
-});
 
 //Routes
 app.use('/', require('./routes/index'));
