@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="/public/styles/style.css" rel="stylesheet">
-</head>
-<body>
-    <h1><%= channel.name %></h1>
-    <h2><%= channel.description %></h2>
-    <ul id="messages"></ul>
+<h1><%= channel.name %></h1>
+<h2><%= channel.description %></h2>
+<input type="text" value="<%= user.id %>" id="userId" hidden>
 
-    <form id="form">
-        <input id="input" autocomplete="off">
-        <button>Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/public/scripts/script.js"></script>
-</body>
-</html>
+<ul>
+  <% channel.messages.forEach( msg => { %>
+  <li>
+    <span><%= msg.by %> wrote on <%= msg.date %>:</span><br /><span
+      ><%= msg.content %></span
+    ><br>
+  </li>
+  <% }) %>
+</ul>
+
+  <form id="form" method="POST" action="/channels/<%= channel._id %>">
+    <textarea
+      name="content"
+      cols="30"
+      rows="7"
+      placeholder="Post"
+      id="content"
+      autocomplete="off"
+      required
+    ></textarea
+    ><br />
+    <input type="submit" value="Post" id="submit" />
+  </form>
+
+<script src="../socket.io/socket.io.js"></script>
+<script src="/public/scripts/script.js"></script>
