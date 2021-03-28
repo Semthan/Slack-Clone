@@ -1,9 +1,12 @@
 <h1>Profile</h1>
 
-<p>logged as <%= user.name %></p>
+<p>logged as <%= user.name %></p> 
 
 <p>Edit your profile</p>
 
-<form action="" method="post">
-    
+<form action="/users/profile/upload" method="post" enctype="multipart/form-data">
+    <img class="profile-img" src="<%= user.profilePic %>">
+    <input type="file" name="pic">
+    <input type="submit" value="Save">
 </form>
+

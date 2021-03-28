@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const User = require("../models/user");
 const passport = require('passport');
 
+router.use(express.urlencoded({ extended: true }));
+
 //login handle
 router.get('/login', (req, res) => {
   res.render('login');
@@ -88,6 +90,34 @@ router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'new logged out');
   res.redirect('/users/login');
+})
+
+router.get('/profile', (req,res) => {
+  res.render('profile', {user:req.user} )
+})
+
+router.post('/profile/upload', (req,res) => {
+  if(req.files){
+    let pic = req.files.pic
+    const extension = pic.name.split('.').slice(-1)[0];
+    let file_name = `./uploads/${req.user._id}.${extension}`
+
+    pic.mv(`.${file_name}`)
+
+    User.updateOne(
+      {_id: req.user._id },
+      { $set: {profilePic: file_name}},
+      (error) =>{
+        if (error) console.log(error);
+        const msg = "profile picture update"
+        res.render('profile', {user: req.user, msg})
+      }
+    )
+  }
+  else {
+    const message = 'No file uploaded';
+    res.render('profile', { user: req.user, message });
+  }
 })
 
 module.exports = router;
