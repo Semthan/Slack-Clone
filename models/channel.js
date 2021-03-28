@@ -11,7 +11,8 @@ const channelSchema =  new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    messages : []
 })
 
 const Channel = mongoose.model('Channel', channelSchema)
