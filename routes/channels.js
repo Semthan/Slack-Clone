@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
-
 router.use(express.urlencoded({ extended: true }));
 
 const Channel = require('../models/channel');
+const Msg = require('../models/message');
 
 router.get('/createChannel', (req,res)=>{
   res.render('createChannel');
@@ -30,21 +29,27 @@ router.get('/delete/:id', (req,res) => {
   })
 })
 
-
 router.get('/:id', (req,res) => {
-  Channel.findById(req.params.id, (error,data) => {
+  Channel.findById(req.params.id, (error, channel) => {
     if (error) return console.error(error);
-    res.render('chat.ejs', { channel: data });
+    res.render('chat.ejs', { channel: channel, user: req.user });
   })
 })
 
-
-/* router.get('/chat', (req, res) => {
-  res.render('chat');
+router.post('/:id', (req,res) => {
+  const msg = new Msg({
+    by: req.user.name,
+    byId: req.user._id,
+    content: req.body.content
+  })
+  Channel.updateOne(
+    {_id: req.params.id },
+    { $push: {messages: msg}},
+    (error) => {
+        if(error) return console.log(error)
+        res.redirect(`/channels/${req.params.id}`)
+    }
+  )
 })
-
-router.get('/createChannel', (req, res) => {
-  res.render('createChannel')
-}) */
 
 module.exports = router;
