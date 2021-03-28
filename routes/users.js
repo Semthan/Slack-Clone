@@ -100,7 +100,7 @@ router.post('/profile/upload', (req,res) => {
   if(req.files){
     let pic = req.files.pic
     const extension = pic.name.split('.').slice(-1)[0];
-    let file_name = `./uploads/${req.user._id}.${extension}`
+    let file_name = `/uploads/${req.user._id}.${extension}`
 
     pic.mv(`.${file_name}`)
 
